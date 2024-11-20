@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "burp.Proto";
+
+
+message NetworkData {
+  bytes rawData = 1;
+  bool isChunked = 2;
+  int32 chunkNum = 3;
+  string traceID = 4;
+  string serviceHost = 5;
+  int32 servicePort = 6;
+}
