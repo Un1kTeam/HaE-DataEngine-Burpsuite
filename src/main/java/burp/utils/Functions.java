@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPOutputStream;
 
 public class Functions {
     public static void showLog(PrintWriter stdout,String level,String msg){
@@ -47,7 +48,7 @@ public class Functions {
                 showLog(BurpExtender.stdout,"error","An error occurred while creating the default configuration");
             }
         } else {
-            showLog(BurpExtender.stdout,"info",fileName+"file already exists.");
+            showLog(BurpExtender.stdout,"info",fileName+" file already exists.");
             showLog(BurpExtender.stdout,"info",fileName+" Path: "+iniFile.getAbsolutePath());
         }
     }
@@ -93,7 +94,7 @@ public class Functions {
     }
 
 
-    public static void chunkSend(IHttpRequestResponse messageInfo, int type,BurpExtender BurpExtender){
+    public static void chunkSend(IHttpRequestResponse messageInfo, int type,BurpExtender BurpExtender) throws IOException {
 
         byte[] data;
 
@@ -109,7 +110,7 @@ public class Functions {
         }else{
             data = messageInfo.getResponse();
         }
-        int chunkSizeThreshold = 1024 * 1024;
+        int chunkSizeThreshold = 1000 * 1000 ;
 
         if (data.length > chunkSizeThreshold) {
 
@@ -123,12 +124,11 @@ public class Functions {
                 byte[] chunk = new byte[end - start];
                 System.arraycopy(data, start, chunk, 0, end - start);
 
-                //设置分块号以及数据,进行压缩
+                //设置分块号以及数据,进行gzip压缩
                 networkDataBuilder.setChunkNum((i + 1));
                 networkDataBuilder.setRawData(ByteString.copyFrom(chunk));
                 byte[] serializedData =  networkDataBuilder.build().toByteArray();
-
-                BurpExtender.NC.publish("test", serializedData);
+                BurpExtender.NC.publish("test", compress(serializedData));
                 showLog(BurpExtender.stdout,"info","Large Messages Process: Published chunk " + (i + 1) + " of " + numberOfChunks);
             }
 
@@ -137,7 +137,7 @@ public class Functions {
             networkDataBuilder.setChunkNum(-1);
             networkDataBuilder.setRawData(ByteString.copyFrom(data));
             byte[] serializedData =  networkDataBuilder.build().toByteArray();
-            BurpExtender.NC.publish("test", serializedData);
+            BurpExtender.NC.publish("test", compress(serializedData));
         }
     }
 
@@ -156,5 +156,20 @@ public class Functions {
         String extension = path.substring(lastDotIndex + 1).toLowerCase();
 
         return STATIC_EXTENSIONS.contains(extension);
+    }
+
+
+    public static byte[] compress(byte[] data) throws IOException {
+
+        if (data == null || data.length == 0) {
+            return new byte[0];
+        }
+
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+             GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
+            gzipOutputStream.write(data);
+            gzipOutputStream.finish();
+            return byteArrayOutputStream.toByteArray();
+        }
     }
 }

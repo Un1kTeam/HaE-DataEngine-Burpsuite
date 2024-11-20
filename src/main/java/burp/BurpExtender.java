@@ -26,7 +26,7 @@ public class BurpExtender implements IBurpExtender,IHttpListener{
         callbacks.registerHttpListener(BurpExtender.this);
         showLog(this.stdout,"info","Load extender successful");
         showLog(this.stdout,"info","Author depy");
-        showLog(this.stdout,"info","Version 0.0.2");
+        showLog(this.stdout,"info","Version 0.0.3");
         init();
 
     }
@@ -41,9 +41,18 @@ public class BurpExtender implements IBurpExtender,IHttpListener{
         if(this.Config != null && !checkExt){
             showLog(this.stdout,"info","Non static resources, start regular matching of data, compression and segmentation");
             if(messageIsRequest){
-                Functions.chunkSend(messageInfo,1,this);
+                try {
+                    Functions.chunkSend(messageInfo,1,this);
+                }catch (Exception e){
+                    showLog(this.stdout,"error",e.getMessage());
+                }
+
             }else{
-                Functions.chunkSend(messageInfo,2,this);
+                try {
+                    Functions.chunkSend(messageInfo,2,this);
+                }catch (Exception e){
+                    showLog(this.stdout,"error",e.getMessage());
+                }
             }
         }
 
