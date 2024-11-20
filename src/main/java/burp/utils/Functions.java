@@ -6,10 +6,7 @@ import burp.classes.Config;
 import com.google.protobuf.ByteString;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.GZIPOutputStream;
 
 public class Functions {
@@ -97,11 +94,16 @@ public class Functions {
     public static void chunkSend(IHttpRequestResponse messageInfo, int type,BurpExtender BurpExtender) throws IOException {
 
         byte[] data;
+        UUID uuid = UUID.randomUUID();
+
+        if(messageInfo.getComment().isEmpty()){
+            messageInfo.setComment(uuid.toString());
+        }
 
         Network.NetworkData.Builder networkDataBuilder = Network.NetworkData.newBuilder();
 
         //基础信息设置
-        networkDataBuilder.setTraceID(String.valueOf(messageInfo.hashCode()));
+        networkDataBuilder.setTraceID(String.valueOf(messageInfo.getComment()));
         networkDataBuilder.setServiceHost(messageInfo.getHttpService().getHost());
         networkDataBuilder.setServicePort(messageInfo.getHttpService().getPort());
 
