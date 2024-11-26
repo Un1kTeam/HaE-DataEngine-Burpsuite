@@ -26,7 +26,7 @@ public class BurpExtender implements IBurpExtender,IHttpListener{
         callbacks.registerHttpListener(BurpExtender.this);
         showLog(this.stdout,"info","Load extender successful");
         showLog(this.stdout,"info","Author depy");
-        showLog(this.stdout,"info","Version 0.0.3");
+        showLog(this.stdout,"info","Version 0.0.4");
         init();
 
     }

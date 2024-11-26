@@ -102,8 +102,14 @@ public class Functions {
 
         Network.NetworkData.Builder networkDataBuilder = Network.NetworkData.newBuilder();
 
+        BurpExtender.stdout.println(messageInfo.getComment());
         //基础信息设置
-        networkDataBuilder.setTraceID(String.valueOf(messageInfo.getComment()));
+        if(type == 1){
+            networkDataBuilder.setTraceID("REQ-"+ messageInfo.getComment());
+        }else{
+            networkDataBuilder.setTraceID("RES-"+ messageInfo.getComment());
+        }
+
         networkDataBuilder.setServiceHost(messageInfo.getHttpService().getHost());
         networkDataBuilder.setServicePort(messageInfo.getHttpService().getPort());
 
