@@ -10,4 +10,6 @@ message NetworkData {
   string traceID = 4;
   string serviceHost = 5;
   int32 servicePort = 6;
+  string topic = 7;
+  string reqType = 8;
 }

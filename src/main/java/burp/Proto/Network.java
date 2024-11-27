@@ -51,7 +51,7 @@ public final class Network {
      * <code>string traceID = 4;</code>
      * @return The traceID.
      */
-    java.lang.String getTraceID();
+    String getTraceID();
     /**
      * <code>string traceID = 4;</code>
      * @return The bytes for traceID.
@@ -63,7 +63,7 @@ public final class Network {
      * <code>string serviceHost = 5;</code>
      * @return The serviceHost.
      */
-    java.lang.String getServiceHost();
+    String getServiceHost();
     /**
      * <code>string serviceHost = 5;</code>
      * @return The bytes for serviceHost.
@@ -76,6 +76,30 @@ public final class Network {
      * @return The servicePort.
      */
     int getServicePort();
+
+    /**
+     * <code>string topic = 7;</code>
+     * @return The topic.
+     */
+    String getTopic();
+    /**
+     * <code>string topic = 7;</code>
+     * @return The bytes for topic.
+     */
+    com.google.protobuf.ByteString
+        getTopicBytes();
+
+    /**
+     * <code>string reqType = 8;</code>
+     * @return The reqType.
+     */
+    String getReqType();
+    /**
+     * <code>string reqType = 8;</code>
+     * @return The bytes for reqType.
+     */
+    com.google.protobuf.ByteString
+        getReqTypeBytes();
   }
   /**
    * Protobuf type {@code NetworkData}
@@ -102,19 +126,21 @@ public final class Network {
       rawData_ = com.google.protobuf.ByteString.EMPTY;
       traceID_ = "";
       serviceHost_ = "";
+      topic_ = "";
+      reqType_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return burp.Proto.Network.internal_static_NetworkData_descriptor;
+      return Network.internal_static_NetworkData_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return burp.Proto.Network.internal_static_NetworkData_fieldAccessorTable
+      return Network.internal_static_NetworkData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              burp.Proto.Network.NetworkData.class, burp.Proto.Network.NetworkData.Builder.class);
+              NetworkData.class, Builder.class);
     }
 
     public static final int RAWDATA_FIELD_NUMBER = 1;
@@ -123,7 +149,7 @@ public final class Network {
      * <code>bytes rawData = 1;</code>
      * @return The rawData.
      */
-    @java.lang.Override
+    @Override
     public com.google.protobuf.ByteString getRawData() {
       return rawData_;
     }
@@ -134,7 +160,7 @@ public final class Network {
      * <code>bool isChunked = 2;</code>
      * @return The isChunked.
      */
-    @java.lang.Override
+    @Override
     public boolean getIsChunked() {
       return isChunked_;
     }
@@ -145,27 +171,27 @@ public final class Network {
      * <code>int32 chunkNum = 3;</code>
      * @return The chunkNum.
      */
-    @java.lang.Override
+    @Override
     public int getChunkNum() {
       return chunkNum_;
     }
 
     public static final int TRACEID_FIELD_NUMBER = 4;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object traceID_ = "";
+    private volatile Object traceID_ = "";
     /**
      * <code>string traceID = 4;</code>
      * @return The traceID.
      */
-    @java.lang.Override
-    public java.lang.String getTraceID() {
-      java.lang.Object ref = traceID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    @Override
+    public String getTraceID() {
+      Object ref = traceID_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         traceID_ = s;
         return s;
       }
@@ -174,14 +200,14 @@ public final class Network {
      * <code>string traceID = 4;</code>
      * @return The bytes for traceID.
      */
-    @java.lang.Override
+    @Override
     public com.google.protobuf.ByteString
         getTraceIDBytes() {
-      java.lang.Object ref = traceID_;
-      if (ref instanceof java.lang.String) {
+      Object ref = traceID_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         traceID_ = b;
         return b;
       } else {
@@ -191,20 +217,20 @@ public final class Network {
 
     public static final int SERVICEHOST_FIELD_NUMBER = 5;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object serviceHost_ = "";
+    private volatile Object serviceHost_ = "";
     /**
      * <code>string serviceHost = 5;</code>
      * @return The serviceHost.
      */
-    @java.lang.Override
-    public java.lang.String getServiceHost() {
-      java.lang.Object ref = serviceHost_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    @Override
+    public String getServiceHost() {
+      Object ref = serviceHost_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         serviceHost_ = s;
         return s;
       }
@@ -213,14 +239,14 @@ public final class Network {
      * <code>string serviceHost = 5;</code>
      * @return The bytes for serviceHost.
      */
-    @java.lang.Override
+    @Override
     public com.google.protobuf.ByteString
         getServiceHostBytes() {
-      java.lang.Object ref = serviceHost_;
-      if (ref instanceof java.lang.String) {
+      Object ref = serviceHost_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         serviceHost_ = b;
         return b;
       } else {
@@ -234,13 +260,91 @@ public final class Network {
      * <code>int32 servicePort = 6;</code>
      * @return The servicePort.
      */
-    @java.lang.Override
+    @Override
     public int getServicePort() {
       return servicePort_;
     }
 
+    public static final int TOPIC_FIELD_NUMBER = 7;
+    @SuppressWarnings("serial")
+    private volatile Object topic_ = "";
+    /**
+     * <code>string topic = 7;</code>
+     * @return The topic.
+     */
+    @Override
+    public String getTopic() {
+      Object ref = topic_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        topic_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string topic = 7;</code>
+     * @return The bytes for topic.
+     */
+    @Override
+    public com.google.protobuf.ByteString
+        getTopicBytes() {
+      Object ref = topic_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        topic_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REQTYPE_FIELD_NUMBER = 8;
+    @SuppressWarnings("serial")
+    private volatile Object reqType_ = "";
+    /**
+     * <code>string reqType = 8;</code>
+     * @return The reqType.
+     */
+    @Override
+    public String getReqType() {
+      Object ref = reqType_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        reqType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string reqType = 8;</code>
+     * @return The bytes for reqType.
+     */
+    @Override
+    public com.google.protobuf.ByteString
+        getReqTypeBytes() {
+      Object ref = reqType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        reqType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -250,7 +354,7 @@ public final class Network {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!rawData_.isEmpty()) {
@@ -271,10 +375,16 @@ public final class Network {
       if (servicePort_ != 0) {
         output.writeInt32(6, servicePort_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(topic_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 7, topic_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(reqType_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 8, reqType_);
+      }
       getUnknownFields().writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -302,20 +412,26 @@ public final class Network {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, servicePort_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(topic_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(7, topic_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(reqType_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, reqType_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof burp.Proto.Network.NetworkData)) {
+      if (!(obj instanceof NetworkData)) {
         return super.equals(obj);
       }
-      burp.Proto.Network.NetworkData other = (burp.Proto.Network.NetworkData) obj;
+      NetworkData other = (NetworkData) obj;
 
       if (!getRawData()
           .equals(other.getRawData())) return false;
@@ -329,11 +445,15 @@ public final class Network {
           .equals(other.getServiceHost())) return false;
       if (getServicePort()
           != other.getServicePort()) return false;
+      if (!getTopic()
+          .equals(other.getTopic())) return false;
+      if (!getReqType()
+          .equals(other.getReqType())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -353,49 +473,53 @@ public final class Network {
       hash = (53 * hash) + getServiceHost().hashCode();
       hash = (37 * hash) + SERVICEPORT_FIELD_NUMBER;
       hash = (53 * hash) + getServicePort();
+      hash = (37 * hash) + TOPIC_FIELD_NUMBER;
+      hash = (53 * hash) + getTopic().hashCode();
+      hash = (37 * hash) + REQTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getReqType().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(byte[] data)
+    public static NetworkData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(java.io.InputStream input)
+    public static NetworkData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -403,26 +527,26 @@ public final class Network {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static burp.Proto.Network.NetworkData parseDelimitedFrom(java.io.InputStream input)
+    public static NetworkData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static burp.Proto.Network.NetworkData parseDelimitedFrom(
+    public static NetworkData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static burp.Proto.Network.NetworkData parseFrom(
+    public static NetworkData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -430,23 +554,23 @@ public final class Network {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(burp.Proto.Network.NetworkData prototype) {
+    public static Builder newBuilder(NetworkData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -456,18 +580,18 @@ public final class Network {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:NetworkData)
-        burp.Proto.Network.NetworkDataOrBuilder {
+        NetworkDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return burp.Proto.Network.internal_static_NetworkData_descriptor;
+        return Network.internal_static_NetworkData_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return burp.Proto.Network.internal_static_NetworkData_fieldAccessorTable
+        return Network.internal_static_NetworkData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                burp.Proto.Network.NetworkData.class, burp.Proto.Network.NetworkData.Builder.class);
+                NetworkData.class, Builder.class);
       }
 
       // Construct using burp.Proto.Network.NetworkData.newBuilder()
@@ -476,11 +600,11 @@ public final class Network {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
 
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
@@ -490,38 +614,40 @@ public final class Network {
         traceID_ = "";
         serviceHost_ = "";
         servicePort_ = 0;
+        topic_ = "";
+        reqType_ = "";
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return burp.Proto.Network.internal_static_NetworkData_descriptor;
+        return Network.internal_static_NetworkData_descriptor;
       }
 
-      @java.lang.Override
-      public burp.Proto.Network.NetworkData getDefaultInstanceForType() {
-        return burp.Proto.Network.NetworkData.getDefaultInstance();
+      @Override
+      public NetworkData getDefaultInstanceForType() {
+        return NetworkData.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public burp.Proto.Network.NetworkData build() {
-        burp.Proto.Network.NetworkData result = buildPartial();
+      @Override
+      public NetworkData build() {
+        NetworkData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public burp.Proto.Network.NetworkData buildPartial() {
-        burp.Proto.Network.NetworkData result = new burp.Proto.Network.NetworkData(this);
+      @Override
+      public NetworkData buildPartial() {
+        NetworkData result = new NetworkData(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(burp.Proto.Network.NetworkData result) {
+      private void buildPartial0(NetworkData result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.rawData_ = rawData_;
@@ -541,20 +667,26 @@ public final class Network {
         if (((from_bitField0_ & 0x00000020) != 0)) {
           result.servicePort_ = servicePort_;
         }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.topic_ = topic_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.reqType_ = reqType_;
+        }
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof burp.Proto.Network.NetworkData) {
-          return mergeFrom((burp.Proto.Network.NetworkData)other);
+        if (other instanceof NetworkData) {
+          return mergeFrom((NetworkData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(burp.Proto.Network.NetworkData other) {
-        if (other == burp.Proto.Network.NetworkData.getDefaultInstance()) return this;
+      public Builder mergeFrom(NetworkData other) {
+        if (other == NetworkData.getDefaultInstance()) return this;
         if (other.getRawData() != com.google.protobuf.ByteString.EMPTY) {
           setRawData(other.getRawData());
         }
@@ -577,23 +709,33 @@ public final class Network {
         if (other.getServicePort() != 0) {
           setServicePort(other.getServicePort());
         }
+        if (!other.getTopic().isEmpty()) {
+          topic_ = other.topic_;
+          bitField0_ |= 0x00000040;
+          onChanged();
+        }
+        if (!other.getReqType().isEmpty()) {
+          reqType_ = other.reqType_;
+          bitField0_ |= 0x00000080;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
+          throw new NullPointerException();
         }
         try {
           boolean done = false;
@@ -633,6 +775,16 @@ public final class Network {
                 bitField0_ |= 0x00000020;
                 break;
               } // case 48
+              case 58: {
+                topic_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 58
+              case 66: {
+                reqType_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 66
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -655,7 +807,7 @@ public final class Network {
        * <code>bytes rawData = 1;</code>
        * @return The rawData.
        */
-      @java.lang.Override
+      @Override
       public com.google.protobuf.ByteString getRawData() {
         return rawData_;
       }
@@ -687,7 +839,7 @@ public final class Network {
        * <code>bool isChunked = 2;</code>
        * @return The isChunked.
        */
-      @java.lang.Override
+      @Override
       public boolean getIsChunked() {
         return isChunked_;
       }
@@ -719,7 +871,7 @@ public final class Network {
        * <code>int32 chunkNum = 3;</code>
        * @return The chunkNum.
        */
-      @java.lang.Override
+      @Override
       public int getChunkNum() {
         return chunkNum_;
       }
@@ -746,21 +898,21 @@ public final class Network {
         return this;
       }
 
-      private java.lang.Object traceID_ = "";
+      private Object traceID_ = "";
       /**
        * <code>string traceID = 4;</code>
        * @return The traceID.
        */
-      public java.lang.String getTraceID() {
-        java.lang.Object ref = traceID_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getTraceID() {
+        Object ref = traceID_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           traceID_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -769,11 +921,11 @@ public final class Network {
        */
       public com.google.protobuf.ByteString
           getTraceIDBytes() {
-        java.lang.Object ref = traceID_;
+        Object ref = traceID_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           traceID_ = b;
           return b;
         } else {
@@ -786,7 +938,7 @@ public final class Network {
        * @return This builder for chaining.
        */
       public Builder setTraceID(
-          java.lang.String value) {
+          String value) {
         if (value == null) { throw new NullPointerException(); }
         traceID_ = value;
         bitField0_ |= 0x00000008;
@@ -818,21 +970,21 @@ public final class Network {
         return this;
       }
 
-      private java.lang.Object serviceHost_ = "";
+      private Object serviceHost_ = "";
       /**
        * <code>string serviceHost = 5;</code>
        * @return The serviceHost.
        */
-      public java.lang.String getServiceHost() {
-        java.lang.Object ref = serviceHost_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getServiceHost() {
+        Object ref = serviceHost_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           serviceHost_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -841,11 +993,11 @@ public final class Network {
        */
       public com.google.protobuf.ByteString
           getServiceHostBytes() {
-        java.lang.Object ref = serviceHost_;
+        Object ref = serviceHost_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           serviceHost_ = b;
           return b;
         } else {
@@ -858,7 +1010,7 @@ public final class Network {
        * @return This builder for chaining.
        */
       public Builder setServiceHost(
-          java.lang.String value) {
+          String value) {
         if (value == null) { throw new NullPointerException(); }
         serviceHost_ = value;
         bitField0_ |= 0x00000010;
@@ -895,7 +1047,7 @@ public final class Network {
        * <code>int32 servicePort = 6;</code>
        * @return The servicePort.
        */
-      @java.lang.Override
+      @Override
       public int getServicePort() {
         return servicePort_;
       }
@@ -922,22 +1074,166 @@ public final class Network {
         return this;
       }
 
+      private Object topic_ = "";
+      /**
+       * <code>string topic = 7;</code>
+       * @return The topic.
+       */
+      public String getTopic() {
+        Object ref = topic_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          topic_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <code>string topic = 7;</code>
+       * @return The bytes for topic.
+       */
+      public com.google.protobuf.ByteString
+          getTopicBytes() {
+        Object ref = topic_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          topic_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string topic = 7;</code>
+       * @param value The topic to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTopic(
+          String value) {
+        if (value == null) { throw new NullPointerException(); }
+        topic_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string topic = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTopic() {
+        topic_ = getDefaultInstance().getTopic();
+        bitField0_ = (bitField0_ & ~0x00000040);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string topic = 7;</code>
+       * @param value The bytes for topic to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTopicBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        topic_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+
+      private Object reqType_ = "";
+      /**
+       * <code>string reqType = 8;</code>
+       * @return The reqType.
+       */
+      public String getReqType() {
+        Object ref = reqType_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          reqType_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <code>string reqType = 8;</code>
+       * @return The bytes for reqType.
+       */
+      public com.google.protobuf.ByteString
+          getReqTypeBytes() {
+        Object ref = reqType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          reqType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string reqType = 8;</code>
+       * @param value The reqType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReqType(
+          String value) {
+        if (value == null) { throw new NullPointerException(); }
+        reqType_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reqType = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReqType() {
+        reqType_ = getDefaultInstance().getReqType();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reqType = 8;</code>
+       * @param value The bytes for reqType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReqTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        reqType_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:NetworkData)
     }
 
     // @@protoc_insertion_point(class_scope:NetworkData)
-    private static final burp.Proto.Network.NetworkData DEFAULT_INSTANCE;
+    private static final NetworkData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new burp.Proto.Network.NetworkData();
+      DEFAULT_INSTANCE = new NetworkData();
     }
 
-    public static burp.Proto.Network.NetworkData getDefaultInstance() {
+    public static NetworkData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<NetworkData>
         PARSER = new com.google.protobuf.AbstractParser<NetworkData>() {
-      @java.lang.Override
+      @Override
       public NetworkData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -961,13 +1257,13 @@ public final class Network {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<NetworkData> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public burp.Proto.Network.NetworkData getDefaultInstanceForType() {
+    @Override
+    public NetworkData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -986,12 +1282,12 @@ public final class Network {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
-      "\n\rnetwork.proto\"~\n\013NetworkData\022\017\n\007rawDat" +
-      "a\030\001 \001(\014\022\021\n\tisChunked\030\002 \001(\010\022\020\n\010chunkNum\030\003" +
-      " \001(\005\022\017\n\007traceID\030\004 \001(\t\022\023\n\013serviceHost\030\005 \001" +
-      "(\t\022\023\n\013servicePort\030\006 \001(\005B\014\n\nburp.Protob\006p" +
-      "roto3"
+    String[] descriptorData = {
+      "\n\rnetwork.proto\"\236\001\n\013NetworkData\022\017\n\007rawDa" +
+      "ta\030\001 \001(\014\022\021\n\tisChunked\030\002 \001(\010\022\020\n\010chunkNum\030" +
+      "\003 \001(\005\022\017\n\007traceID\030\004 \001(\t\022\023\n\013serviceHost\030\005 " +
+      "\001(\t\022\023\n\013servicePort\030\006 \001(\005\022\r\n\005topic\030\007 \001(\t\022" +
+      "\017\n\007reqType\030\010 \001(\tB\014\n\nburp.Protob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1002,7 +1298,7 @@ public final class Network {
     internal_static_NetworkData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_NetworkData_descriptor,
-        new java.lang.String[] { "RawData", "IsChunked", "ChunkNum", "TraceID", "ServiceHost", "ServicePort", });
+        new String[] { "RawData", "IsChunked", "ChunkNum", "TraceID", "ServiceHost", "ServicePort", "Topic", "ReqType", });
     descriptor.resolveAllFeaturesImmutable();
   }
 
