@@ -15,18 +15,18 @@ public class BurpExtender implements IBurpExtender,IHttpListener{
     public PrintWriter stdout;
     public IExtensionHelpers helpers;
     private IBurpExtenderCallbacks callbacks;
-    private burp.classes.Config Config;
+    public burp.classes.Config Config;
 
     public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks) {
 
         this.stdout = new PrintWriter(callbacks.getStdout(), true);
         this.callbacks = callbacks;
         this.helpers = callbacks.getHelpers();
-        callbacks.setExtensionName("HaE-DataEngine");
+        callbacks.setExtensionName("HaE-DataEngine-For-Burpsuite");
         callbacks.registerHttpListener(BurpExtender.this);
         showLog(this.stdout,"info","Load extender successful");
         showLog(this.stdout,"info","Author depy");
-        showLog(this.stdout,"info","Version 0.0.4");
+        showLog(this.stdout,"info","Version 0.0.5");
         init();
 
     }
