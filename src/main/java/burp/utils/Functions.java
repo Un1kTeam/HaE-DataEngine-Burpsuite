@@ -55,6 +55,7 @@ public class Functions {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write("[Settings]\n");
             writer.write("NatsServerHost=0.0.0.0\n");
+            writer.write("topic=test\n");
             writer.write("NatsServerPort=4222\n");
             writer.write("debug=true\n");
             showLog(BurpExtender.stdout,"success","The default configuration has been written to the file");
@@ -86,8 +87,9 @@ public class Functions {
         String natsServerHost = configMap.get("NatsServerHost");
         String natsServerPort = configMap.get("NatsServerPort");
         String debug = configMap.get("debug");
+        String topic  = configMap.get("topic");
 
-        return new Config(natsServerHost, natsServerPort, debug);
+        return new Config(natsServerHost, natsServerPort, debug,topic);
     }
 
 
@@ -105,11 +107,13 @@ public class Functions {
         BurpExtender.stdout.println(messageInfo.getComment());
         //基础信息设置
         if(type == 1){
-            networkDataBuilder.setTraceID("REQ-"+ messageInfo.getComment());
+            networkDataBuilder.setReqType("REQ");
         }else{
-            networkDataBuilder.setTraceID("RES-"+ messageInfo.getComment());
+            networkDataBuilder.setReqType("RES");
         }
 
+        networkDataBuilder.setTraceID(messageInfo.getComment());
+        networkDataBuilder.setTopic(BurpExtender.Config.topic);
         networkDataBuilder.setServiceHost(messageInfo.getHttpService().getHost());
         networkDataBuilder.setServicePort(messageInfo.getHttpService().getPort());
 
@@ -136,7 +140,7 @@ public class Functions {
                 networkDataBuilder.setChunkNum((i + 1));
                 networkDataBuilder.setRawData(ByteString.copyFrom(chunk));
                 byte[] serializedData =  networkDataBuilder.build().toByteArray();
-                BurpExtender.NC.publish("test", compress(serializedData));
+                BurpExtender.NC.publish(BurpExtender.Config.topic, compress(serializedData));
                 showLog(BurpExtender.stdout,"info","Large Messages Process: Published chunk " + (i + 1) + " of " + numberOfChunks);
             }
 
@@ -145,7 +149,7 @@ public class Functions {
             networkDataBuilder.setChunkNum(-1);
             networkDataBuilder.setRawData(ByteString.copyFrom(data));
             byte[] serializedData =  networkDataBuilder.build().toByteArray();
-            BurpExtender.NC.publish("test", compress(serializedData));
+            BurpExtender.NC.publish(BurpExtender.Config.topic, compress(serializedData));
         }
     }
 
